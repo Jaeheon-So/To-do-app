@@ -40,3 +40,7 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.task-complete {
+  text-decoration: line-through;
+}
