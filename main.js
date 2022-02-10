@@ -1,5 +1,3 @@
-// 버튼 아이콘 3개(체크, reset, delete)
-// check버튼 클릭후 밑줄이 갈때 밑에 배경 회색으로 바꾸기
 // style 꾸미기
 // 뒷배경 바꾸기
 let inputTask = document.getElementById("input-task");
@@ -34,6 +32,10 @@ tabNotDone.addEventListener("click", notDoneRender);
 tabDone.addEventListener("click", doneRender);
 
 function addTask() {
+  if (inputTask.value == "") {
+    alert("내용을 입력하주세요.");
+    return;
+  }
   let task = {
     inputValue: inputTask.value,
     id: randomId(),
@@ -50,19 +52,19 @@ function render(list) {
   let result = ``;
   for (let i = 0; i < list.length; i++) {
     if (list[i].isComplete) {
-      result += `<div class="task">
+      result += `<div class="task task-done">
                     <div class="task-complete">${list[i].inputValue}</div>
-                    <div>
-                        <button onclick="taskComplete('${list[i].id}')">Check</button>
-                        <button onclick="taskDelete('${list[i].id}')">Delete</button>
+                    <div class="btn-box">
+                        <button onclick="taskComplete('${list[i].id}')"><i class="fas fa-undo-alt"></i></button>
+                        <button onclick="taskDelete('${list[i].id}')"><i class="fa fa-trash"></i></button>
                     </div>
                 </div>`;
     } else {
       result += `<div class="task">
                     <div>${list[i].inputValue}</div>
-                    <div>
-                        <button onclick="taskComplete('${list[i].id}')">Check</button>
-                        <button onclick="taskDelete('${list[i].id}')">Delete</button>
+                    <div class="btn-box">
+                        <button onclick="taskComplete('${list[i].id}')"><i class="fa fa-check"></i></button>
+                        <button onclick="taskDelete('${list[i].id}')"><i class="fa fa-trash"></i></button>
                     </div>
                 </div>`;
     }
