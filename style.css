@@ -82,7 +82,7 @@ body {
 }
 
 .task-done {
-  background-color: lightgray;
+  background-color: rgb(230, 230, 230);
 }
 
 .task-complete {
