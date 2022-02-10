@@ -1,20 +1,37 @@
-// task 상태 밑줄 이동
-// task 상태 이동
-// + 버튼 enter 적용
-// + 버튼 or enter 하면 input에서 지우기
 // 버튼 아이콘 3개(체크, reset, delete)
 // check버튼 클릭후 밑줄이 갈때 밑에 배경 회색으로 바꾸기
 // style 꾸미기
 // 뒷배경 바꾸기
 let inputTask = document.getElementById("input-task");
 let btnAdd = document.getElementById("btn-add");
+let tabs = document.querySelectorAll(".task-status div");
 let tabAll = document.getElementById("tab-all");
 let tabDone = document.getElementById("tab-done");
 let tabNotDone = document.getElementById("tab-not-done");
+let underline = document.getElementById("underline");
 
 let taskList = [];
+let notDoneList = [];
+let doneList = [];
+let mode = "";
 
 btnAdd.addEventListener("click", addTask);
+
+inputTask.addEventListener("keyup", function (e) {
+  if (e.keyCode === 13) {
+    addTask(e);
+  }
+});
+
+for (let i = 1; i < tabs.length; i++) {
+  tabs[i].addEventListener("click", function (event) {
+    filter(event);
+  });
+}
+
+tabAll.addEventListener("click", allRender);
+tabNotDone.addEventListener("click", notDoneRender);
+tabDone.addEventListener("click", doneRender);
 
 function addTask() {
   let task = {
@@ -24,31 +41,63 @@ function addTask() {
   };
   taskList.push(task);
   console.log(taskList);
-  render();
+  allRender();
+  inputTask.value = "";
 }
 
-function render() {
+function render(list) {
+  console.log(list);
   let result = ``;
-  for (let i = 0; i < taskList.length; i++) {
-    if (taskList[i].isComplete) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].isComplete) {
       result += `<div class="task">
-                    <div class="task-complete">${taskList[i].inputValue}</div>
+                    <div class="task-complete">${list[i].inputValue}</div>
                     <div>
-                        <button onclick="taskComplete('${taskList[i].id}')">Check</button>
-                        <button onclick="taskDelete('${taskList[i].id}')">Delete</button>
+                        <button onclick="taskComplete('${list[i].id}')">Check</button>
+                        <button onclick="taskDelete('${list[i].id}')">Delete</button>
                     </div>
                 </div>`;
     } else {
       result += `<div class="task">
-                    <div>${taskList[i].inputValue}</div>
+                    <div>${list[i].inputValue}</div>
                     <div>
-                        <button onclick="taskComplete('${taskList[i].id}')">Check</button>
-                        <button onclick="taskDelete('${taskList[i].id}')">Delete</button>
+                        <button onclick="taskComplete('${list[i].id}')">Check</button>
+                        <button onclick="taskDelete('${list[i].id}')">Delete</button>
                     </div>
                 </div>`;
     }
   }
   document.getElementById("task-board").innerHTML = result;
+}
+
+function allRender() {
+  console.log("all");
+  mode = "all";
+  render(taskList);
+}
+
+function notDoneRender() {
+  console.log("not done");
+  mode = "not done";
+  notDoneList = [];
+  for (let i = 0; i < taskList.length; i++) {
+    if (!taskList[i].isComplete) {
+      notDoneList.push(taskList[i]);
+    }
+  }
+  render(notDoneList);
+}
+
+function doneRender() {
+  console.log("done");
+  mode = "done";
+  doneList = [];
+  for (let i = 0; i < taskList.length; i++) {
+    if (taskList[i].isComplete) {
+      doneList.push(taskList[i]);
+    }
+  }
+  render(doneList);
 }
 
 function taskComplete(id) {
@@ -58,7 +107,13 @@ function taskComplete(id) {
       break;
     }
   }
-  render();
+  if (mode == "done") {
+    doneRender();
+  } else if (mode == "not done") {
+    notDoneRender();
+  } else {
+    allRender();
+  }
 }
 
 function taskDelete(id) {
@@ -68,7 +123,22 @@ function taskDelete(id) {
       break;
     }
   }
-  render();
+  if (mode == "done") {
+    doneRender();
+  } else if (mode == "not done") {
+    notDoneRender();
+  } else {
+    allRender();
+  }
+}
+
+function filter(e) {
+  if (e) {
+    underline.style.width = e.target.offsetWidth + "px";
+    underline.style.left = e.target.offsetLeft + "px";
+    underline.style.top =
+      e.target.offsetTop + (e.target.offsetHeight - 4) + "px";
+  }
 }
 
 function randomId() {
