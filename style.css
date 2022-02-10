@@ -34,6 +34,11 @@ body {
   padding: 0;
   left: 0px;
   top: 53px;
+  transition: 0.5s;
+}
+
+.task-status div {
+  cursor: pointer;
 }
 
 .task {
