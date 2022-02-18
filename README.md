@@ -2,7 +2,7 @@
 <!-- ![](https://i.imgur.com/Fe3bdyu.png) -->
 아이템 추가 제거, 그리고 상태별 할 일을 볼 수 있는 앱입니다. 
 
-<!-- * 링크 : -->
+* 링크 : https://jaeheon-so.github.io/To-do-app/
 
 ## 기능
 * 유저는 할일을 추가할 수 있다.
