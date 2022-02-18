@@ -1,5 +1,5 @@
 # To do List
-<!-- ![](https://i.imgur.com/Fe3bdyu.png) -->
+![To-Do-List](https://user-images.githubusercontent.com/79908684/154669754-3171b272-720c-49ff-a7d1-d91cf95413f8.PNG)
 아이템 추가 제거, 그리고 상태별 할 일을 볼 수 있는 앱입니다. 
 
 * 링크 : https://jaeheon-so.github.io/To-do-app/
