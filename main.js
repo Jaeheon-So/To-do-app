@@ -1,5 +1,3 @@
-// style 꾸미기
-// 뒷배경 바꾸기
 let inputTask = document.getElementById("input-task");
 let btnAdd = document.getElementById("btn-add");
 let tabs = document.querySelectorAll(".task-status div");
